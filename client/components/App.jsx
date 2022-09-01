@@ -7,7 +7,9 @@ function App() {
   const [token, setToken] = useState('')
   const [artist, setArtist] = useState('')
   const [allArtists, setAllArtists] = useState([])
+  const [artistQuery, setArtistQuery] = useState('')
 
+  // get token on loading
   useEffect(() => {
     getToken()
       .then((tokenObj) => {
@@ -15,18 +17,40 @@ function App() {
         return getArtist(tokenObj.access_token)
       })
       .then((artistObj) => {
-        setArtist(artistObj.name)
+        return setArtist(artistObj.name)
       })
-
+      .then(() => {
+        const test = getAllArtistsQuery(artists)
+        return setArtistQuery(test)
+      })
       .catch((err) => {
         console.error(err.message)
       })
   }, [])
 
+  useEffect(() => {
+    if (artistQuery != '') {
+      getAllArtists()
+    }
+  }, [artistQuery])
+
+  // get all artist on load
+
+  function getAllArtistsQuery(listOfArtists) {
+    let artistIds = ''
+
+    listOfArtists.map((element, index) => {
+      if (index != listOfArtists.length - 1) {
+        artistIds = artistIds.concat(element.id, ',')
+      } else artistIds = artistIds.concat(element.id)
+    })
+
+    return artistIds
+  }
+
   function getAllArtists() {
-    spotifyAllArtists(token)
+    spotifyAllArtists(token, artistQuery)
       .then(({ artists }) => {
-        artists.map((element) => console.log(element.name))
         setAllArtists(artists)
       })
       .catch((err) => {
@@ -41,7 +65,11 @@ function App() {
       <h2>{artist}</h2>
       <button onClick={getAllArtists}>Get Artists</button>
       {allArtists.map((element) => {
-        return <p key={element.name}>{element.name}</p>
+        return (
+          <p key={element.name}>
+            {element.name} {element.id}
+          </p>
+        )
       })}
     </>
   )
