@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react'
 
-import { getToken, getSpotifyArtist, getSpotifyArtists } from '../apiClient'
+import { getToken, getArtist, spotifyAllArtists } from '../apiClient'
 import artists from '../data/artists'
 
 function App() {
   const [token, setToken] = useState('')
   const [artist, setArtist] = useState('')
-  const [manyArtists, setManyArtists] = useState([])
+  const [allArtists, setAllArtists] = useState([])
 
   useEffect(() => {
     getToken()
       .then((tokenObj) => {
         setToken(tokenObj.access_token)
-        return getSpotifyArtist(tokenObj.access_token)
+        return getArtist(tokenObj.access_token)
       })
       .then((artistObj) => {
         setArtist(artistObj.name)
@@ -23,11 +23,11 @@ function App() {
       })
   }, [])
 
-  function getArtists() {
-    getSpotifyArtists(token)
+  function getAllArtists() {
+    spotifyAllArtists(token)
       .then(({ artists }) => {
         artists.map((element) => console.log(element.name))
-        setManyArtists(artists)
+        setAllArtists(artists)
       })
       .catch((err) => {
         console.error(err.message)
@@ -39,8 +39,8 @@ function App() {
       {/* <h1>{welcomeStatement}</h1> */}
       <h1>{'Spotiguys Project'}</h1>
       <h2>{artist}</h2>
-      <button onClick={getArtists}>Get Artists</button>
-      {manyArtists.map((element) => {
+      <button onClick={getAllArtists}>Get Artists</button>
+      {allArtists.map((element) => {
         return <p key={element.name}>{element.name}</p>
       })}
     </>

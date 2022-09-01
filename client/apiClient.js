@@ -12,14 +12,14 @@ export function getToken() {
   return request.get(`${serverURL}/spotify`).then((res) => res.body)
 }
 
-export function getSpotifyArtist(token) {
+export function getArtist(token) {
   return request
     .post(`${serverURL}/spotify/artist`)
     .send({ token })
     .then((res) => res.body)
 }
 
-export function getSpotifyArtists(token) {
+export function spotifyAllArtists(token) {
   return request
     .post(`${serverURL}/spotify/artists`)
     .send({ token })
