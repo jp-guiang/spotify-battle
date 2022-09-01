@@ -1,21 +1,41 @@
 import React, { useState, useEffect } from 'react'
 
-import { getWelcome } from '../apiClient'
+import { getToken, getSpotifyArtist } from '../apiClient'
 
 function App() {
-  const [welcomeStatement, setWelcomeStatement] = useState('')
+  const [token, setToken] = useState('')
 
   useEffect(() => {
-    getWelcome()
-      .then((res) => {
-        setWelcomeStatement(res.statement)
+    getToken()
+      .then((tokenObj) => {
+        console.log(tokenObj)
+        setToken(tokenObj.access_token)
+        return
       })
       .catch((err) => {
-        console.error(err.message)
+        // console.error(err.message)
+        console.log('Pepega')
       })
-  })
+  }, [])
 
-  return <h1>{welcomeStatement}</h1>
+  // useEffect(() => {
+  //   console.log(token)
+  //   getSpotifyArtist(token)
+  //     .then((artist) => {
+  //       console.log(artist)
+  //     })
+  //     .catch((err) => {
+  //       // console.error(err.message)
+  //       console.log('Artist pepe')
+  //     })
+  // }, [token])
+
+  return (
+    <>
+      {/* <h1>{welcomeStatement}</h1> */}
+      <h1>{'Pepe test'}</h1>
+    </>
+  )
 }
 
 export default App
