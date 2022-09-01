@@ -45,7 +45,7 @@ router.post('/artist/all', (req, res) => {
     .set({ Authorization: ` Bearer ${token}` })
     .set({ 'Content-Type': 'application/json' })
     .query({
-      ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
+      ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E',
     })
     .then((response) => {
       res.json(response.body)
