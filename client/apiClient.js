@@ -18,3 +18,10 @@ export function getSpotifyArtist(token) {
     .send({ token })
     .then((res) => res.body)
 }
+
+export function getSpotifyArtists(token) {
+  return request
+    .post(`${serverURL}/spotify/artists`)
+    .send({ token })
+    .then((res) => res.body)
+}
