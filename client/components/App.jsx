@@ -61,6 +61,7 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault()
+    //only pass in the two artists, arist query can be diff variable
     spotifyAllArtists(token, artistQuery)
       .then(({ artists }) => {
         artists.map((element) => console.log(element.images))

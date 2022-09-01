@@ -44,13 +44,7 @@ router.post('/artist/all', (req, res) => {
     .get('https://api.spotify.com/v1/artists')
     .set({ Authorization: ` Bearer ${token}` })
     .set({ 'Content-Type': 'application/json' })
-    .query({
-<<<<<<< HEAD
-      ids: `${idList}`,
-=======
-      ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E',
->>>>>>> 5ddd03d79c419bf03e579816ac69ca1a30f934bf
-    })
+    .query({ ids: `${idList}` })
     .then((response) => {
       res.json(response.body)
     })
