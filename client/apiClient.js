@@ -12,9 +12,16 @@ export function getToken() {
   return request.get(`${serverURL}/spotify`).then((res) => res.body)
 }
 
-export function getSpotifyArtist(token) {
+export function getArtist(token) {
   return request
     .post(`${serverURL}/spotify/artist`)
+    .send({ token })
+    .then((res) => res.body)
+}
+
+export function spotifyAllArtists(token) {
+  return request
+    .post(`${serverURL}/spotify/artist/all`)
     .send({ token })
     .then((res) => res.body)
 }
