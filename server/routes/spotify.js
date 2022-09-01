@@ -31,6 +31,7 @@ router.post('/artist', (req, res) => {
     .set({ 'Content-Type': 'application/json' })
 
     .then((response) => {
+      console.log(response.body)
       res.json(response.body)
     })
 })

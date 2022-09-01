@@ -4,36 +4,28 @@ import { getToken, getSpotifyArtist } from '../apiClient'
 
 function App() {
   const [token, setToken] = useState('')
+  const [artist, setArtist] = useState('')
 
   useEffect(() => {
     getToken()
       .then((tokenObj) => {
-        console.log(tokenObj)
         setToken(tokenObj.access_token)
-        return
+        return getSpotifyArtist(tokenObj.access_token)
       })
+      .then((artistObj) => {
+        setArtist(artistObj.name)
+      })
+
       .catch((err) => {
-        // console.error(err.message)
-        console.log('Pepega')
+        console.error(err.message)
       })
   }, [])
-
-  // useEffect(() => {
-  //   console.log(token)
-  //   getSpotifyArtist(token)
-  //     .then((artist) => {
-  //       console.log(artist)
-  //     })
-  //     .catch((err) => {
-  //       // console.error(err.message)
-  //       console.log('Artist pepe')
-  //     })
-  // }, [token])
 
   return (
     <>
       {/* <h1>{welcomeStatement}</h1> */}
-      <h1>{'Pepe test'}</h1>
+      <h1>{'Spotiguys Project'}</h1>
+      <h2>{artist}</h2>
     </>
   )
 }
