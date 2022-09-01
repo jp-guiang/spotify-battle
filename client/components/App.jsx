@@ -8,6 +8,7 @@ function App() {
   const [artist, setArtist] = useState('')
   const [allArtists, setAllArtists] = useState([])
   const [artistQuery, setArtistQuery] = useState('')
+  const [winner, setWinner] = useState(0)
 
   // get token on loading
   useEffect(() => {
@@ -58,12 +59,29 @@ function App() {
       })
   }
 
+  function handleSubmit(e) {
+    e.preventDefault()
+    spotifyAllArtists(token, artistQuery)
+      .then(({ artists }) => {
+        artists.map((element) => console.log(element.images))
+
+        setAllArtists(artists)
+        // if (artists[0].popularity > artists[1].popularity) {
+        //   setWinner(1)
+        // } else if (artists[1].popularity > artists[0].popularity) {
+        //   setWinner(2)
+        // }
+      })
+      .catch((err) => {
+        console.error(err.message)
+      })
+  }
+
   return (
     <>
       {/* <h1>{welcomeStatement}</h1> */}
       <h1>{'Spotiguys Project'}</h1>
-      <h2>{artist}</h2>
-      <button onClick={getAllArtists}>Get Artists</button>
+
       {allArtists.map((element) => {
         return (
           <p key={element.name}>
@@ -71,6 +89,21 @@ function App() {
           </p>
         )
       })}
+
+      {allArtists.map((element) => {
+        return (
+          <div key={element.uri}>
+            <p>Artist Name: {element.name}</p>
+            <img src={element.images[1].url} height="200px" alt="artist" />
+            <p>Popularity: {element.popularity}</p>
+          </div>
+        )
+      })}
+      <form onSubmit={handleSubmit}>
+        <input></input>
+        <input type="submit" />
+        <input></input>
+      </form>
     </>
   )
 }
