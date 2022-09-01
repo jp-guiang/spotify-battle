@@ -21,7 +21,7 @@ export function getArtist(token) {
 
 export function spotifyAllArtists(token) {
   return request
-    .post(`${serverURL}/spotify/artists`)
+    .post(`${serverURL}/spotify/artist/all`)
     .send({ token })
     .then((res) => res.body)
 }

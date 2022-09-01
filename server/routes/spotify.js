@@ -4,6 +4,7 @@ const router = express.Router()
 const request = require('superagent')
 require('dotenv').config()
 
+// 'http://localhost:3000/api/v1/spotify'
 router.get('/', (req, res) => {
   return request
     .post('https://accounts.spotify.com/api/token')
@@ -21,6 +22,7 @@ router.get('/', (req, res) => {
     })
 })
 
+// 'http://localhost:3000/api/v1/spotify/artist'
 router.post('/artist', (req, res) => {
   const { token } = req.body
 
@@ -34,7 +36,8 @@ router.post('/artist', (req, res) => {
     })
 })
 
-router.post('/artists', (req, res) => {
+// 'http://localhost:3000/api/v1/spotify/artist/all'
+router.post('/artist/all', (req, res) => {
   const { token } = req.body
 
   return request
