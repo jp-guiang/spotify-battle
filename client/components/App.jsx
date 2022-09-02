@@ -62,20 +62,34 @@ function App() {
   function handleSubmit(e) {
     e.preventDefault()
     //only pass in the two artists, arist query can be diff variable
-    spotifyAllArtists(token, artistQuery)
+    const twoArtists = ['6eUKZXaKkcviH0Ku9w2n3V', '66CXWjxzNUsdJxJ2JdwvnR']
+    spotifyAllArtists(token, twoArtists)
       .then(({ artists }) => {
-        artists.map((element) => console.log(element.images))
+        // artists.map((element) => console.log(element.images))
 
         setAllArtists(artists)
-        // if (artists[0].popularity > artists[1].popularity) {
-        //   setWinner(1)
-        // } else if (artists[1].popularity > artists[0].popularity) {
-        //   setWinner(2)
-        // }
+        if (artists[0].popularity > artists[1].popularity) {
+          setWinner(1)
+        } else if (artists[1].popularity > artists[0].popularity) {
+          setWinner(2)
+        } else if (artists[1].popularity === artists[0].popularity) {
+          setWinner(3)
+        }
       })
       .catch((err) => {
         console.error(err.message)
       })
+  }
+  console.log(winner)
+  let winnerStatus = ''
+  if (winner === 0) {
+    winnerStatus = ''
+  } else if (winner === 1) {
+    winnerStatus = `The more popular artist is ${allArtists[0].name}`
+  } else if (winner === 2) {
+    winnerStatus = `The more popular artist is ${allArtists[1].name}`
+  } else if (winner === 3) {
+    winnerStatus = `The artists are equally popular!`
   }
 
   return (
@@ -91,6 +105,12 @@ function App() {
         )
       })}
 
+      <form onSubmit={handleSubmit}>
+        <input></input>
+        <input type="submit" />
+        <input></input>
+      </form>
+
       {allArtists.map((element) => {
         return (
           <div key={element.uri}>
@@ -100,11 +120,7 @@ function App() {
           </div>
         )
       })}
-      <form onSubmit={handleSubmit}>
-        <input></input>
-        <input type="submit" />
-        <input></input>
-      </form>
+      <h1>{winnerStatus}</h1>
     </>
   )
 }
