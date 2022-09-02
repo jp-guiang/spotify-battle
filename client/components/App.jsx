@@ -119,30 +119,36 @@ function App() {
 
   return (
     <>
-      {/* <h1>{welcomeStatement}</h1> */}
-      <h1>{'Spotiguys Project'}</h1>
+      <h1 className="center">Who is the most popular artist?!</h1>
+      <h3 className="center">
+        Presented by: Spotiguys
+        <img
+          className={'spotify-icon'}
+          src="https://i.pinimg.com/736x/d3/ef/53/d3ef532dbc7e7abf3eb1eb55eaf2d2f0.jpg"
+          alt="spotify"
+        ></img>
+      </h3>
 
-      {allArtistData.map((element) => {
-        return (
-          <p key={element.name}>
-            {element.name} {element.id}
-          </p>
-        )
-      })}
-
-      {playerAnswers.map((element) => {
-        return (
-          <div key={element.uri}>
-            <p>Artist Name: {element.name}</p>
-            <img src={element.images[1].url} height="200px" alt="artist" />
-            <p>Popularity: {element.popularity}</p>
-          </div>
-        )
-      })}
-
+      <div className="all-artists-container">
+        {allArtistData.map((element) => {
+          return (
+            <>
+              <img
+                className={'image-list'}
+                src={element.images[1].url}
+                alt={element.name}
+              ></img>
+              <p key={element.name}>
+                <strong className={'green'}>{element.name}</strong> -{' '}
+                {element.id}
+              </p>
+            </>
+          )
+        })}
+      </div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="playerOne">
-          Player 1:
+        <label htmlFor="playerOne" className="playerOne">
+          <strong>Player 1:</strong>
           <input
             id="playerOne"
             onChange={handleChange}
@@ -151,19 +157,34 @@ function App() {
           ></input>
         </label>
 
-        <label htmlFor="playerTwo">
-          Player 2:
+        <label htmlFor="playerTwo" className="playerTwo">
+          <strong>Player 2:</strong>
           <input
             id="playerTwo"
             onChange={handleChange}
             name="playerTwo"
             value={form.playerTwo}
           ></input>
-          <input type="submit" />
         </label>
+        <input type="submit" className="submitbutton button-3" />
       </form>
 
-      <h1>{winnerStatus}</h1>
+      {playerAnswers.map((element, i) => {
+        return (
+          <div key={element.uri} className={'answer' + i}>
+            <p>
+              Artist Name: <strong className={'green'}>{element.name}</strong>
+            </p>
+            <img src={element.images[1].url} height="200px" alt="artist" />
+            <p>
+              Popularity:{' '}
+              <strong className={'green'}>{element.popularity}</strong>
+            </p>
+          </div>
+        )
+      })}
+
+      <h1 className="center">{winnerStatus}</h1>
     </>
   )
 }
