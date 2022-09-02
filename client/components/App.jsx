@@ -9,9 +9,6 @@ function App() {
   const [allArtistData, setAllArtistData] = useState([])
   const [artistQuery, setArtistQuery] = useState('')
   const [winner, setWinner] = useState(0)
-  const [playerSub, setSub] = useState(
-    '0TnOYISbd1XYRBk9myaseg,7dGJo4pcD2V6oG8kP0tJRR,06HL4z0CvFAxyc27GXpf02'
-  )
   const [playerAnswers, setAnswers] = useState([])
 
   const initialFormData = {
@@ -71,31 +68,43 @@ function App() {
   }
 
   function handleSubmit(e) {
-    console.log(form)
-    let answersId = ''
+    // let answersId = [{}]
+    let subIds = ''
 
-    answersId = answersId.concat(form.playerOne, ',', form.playerTwo)
-    console.log(answersId)
-    setSub(answersId)
+    subIds = subIds.concat(form.playerOne, ',', form.playerTwo)
 
     e.preventDefault()
     //only pass in the two artists, arist query can be diff variable
-    spotifyAllArtists(token, playerSub)
+
+    spotifyAllArtists(token, subIds)
       .then(({ artists }) => {
+        // answersId[0][name] = artists[0].name
+        // console.log(answersId)
         setAnswers(artists)
 
-        // artists.map((element) => console.log(element.images))
-
-        // setAllArtistData(artists)
-        // if (artists[0].popularity > artists[1].popularity) {
-        //   setWinner(1)
-        // } else if (artists[1].popularity > artists[0].popularity) {
-        //   setWinner(2)
-        // }
+        // setAllArtists(artists)
+        if (artists[0].popularity > artists[1].popularity) {
+          setWinner(1)
+        } else if (artists[1].popularity > artists[0].popularity) {
+          setWinner(2)
+        } else if (artists[1].popularity === artists[0].popularity) {
+          setWinner(3)
+        }
       })
       .catch((err) => {
         console.error(err.message)
       })
+  }
+
+  let winnerStatus = ''
+  if (winner === 0) {
+    winnerStatus = ''
+  } else if (winner === 1) {
+    winnerStatus = `The more popular artist is ${playerAnswers[0].name}`
+  } else if (winner === 2) {
+    winnerStatus = `The more popular artist is ${playerAnswers[1].name}`
+  } else if (winner === 3) {
+    winnerStatus = `The artists are equally popular!`
   }
 
   function handleChange(e) {
@@ -130,6 +139,7 @@ function App() {
           </div>
         )
       })}
+
       <form onSubmit={handleSubmit}>
         <label htmlFor="playerOne">
           Player 1:
@@ -152,6 +162,8 @@ function App() {
           <input type="submit" />
         </label>
       </form>
+
+      <h1>{winnerStatus}</h1>
     </>
   )
 }
