@@ -1,23 +1,23 @@
-# External APIs - Choose your own adventure!
+# External APIs
 
 This exercise is about exploring the world of APIs available to us. 
 
-In addition to hitting our own APIs with JavaScript, we can also make use of APIs exposed from all around the Internet! As how the API works (and what routes are exposed to us) depends on how it was coded by the developer or team of developers who created it, part of learning how to use external APIs is also about learning how to read their documentation.
+For this project the team decided to use the Spotify API and put the top 20 artists head to head and see who the most popular artist was. Users who use this web app, have to try and guess who the most popular artist is by pasting in Spotify ID into the forms. Forms are a clunky way of taking in user input for this game, but creating forms was the learning objectives of the team, using forms over buttons was prioritised. 
 
-## Setup
+The Spotify API has its own popularity score and this was used to compare the players' choice. Once both players have guessed, the popularity score is compared and the artist with the higher popularity score is displayed.
 
-### 0. Cloning and installation
-- [ ] Clone this repo, navigate to it, install packages, and start the server with `npm run dev`
-  <details style="padding-left: 2em">
-    <summary>Tip</summary>
+#### **From the command line**
 
-    ```sh
-    cd consuming-external-apis
-    npm i
-    npm run dev
-    ```
-  </details>
-
+```
+git clone https://github.com/jp-guiang/spotify-battle.git
+cd spotify-battle
+npm install
+npm run dev
+```
+* open your browser
+* find the server running on [http://localhost:3000](http://localhost:3000).
+* enjoy!
+* 
 ## Requirements
 
 ### 1. Choosing an API
